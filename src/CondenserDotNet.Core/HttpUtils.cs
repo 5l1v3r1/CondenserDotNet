@@ -27,7 +27,7 @@ namespace CondenserDotNet.Core
         public static readonly string SessionCreateUrl = ApiUrl + "session/create";
         public static readonly string HealthAnyUrl = ApiUrl + "health/state/any";
 
-        public static readonly IPAddress DefaultHost = Dns.GetHostAddresses(null)[0];
+        public static readonly IPAddress DefaultHost = Dns.GetHostAddresses(string.Empty)[0];
         public static readonly int DefaultPort = 8500;
         public static readonly TimeSpan DefaultTimeout = TimeSpan.FromMinutes(6);
 
