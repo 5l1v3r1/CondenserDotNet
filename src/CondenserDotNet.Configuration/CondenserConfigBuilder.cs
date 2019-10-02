@@ -26,7 +26,7 @@ namespace CondenserDotNet.Configuration
             return this;
         }
 
-        public CondenserConfigBuilder WithAgentAddress(IPAddress address)
+        public CondenserConfigBuilder WithAgentAddress(string address)
         {
             _config.AgentAddress = address;
             return this;

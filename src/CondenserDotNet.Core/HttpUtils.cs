@@ -27,13 +27,13 @@ namespace CondenserDotNet.Core
         public static readonly string SessionCreateUrl = ApiUrl + "session/create";
         public static readonly string HealthAnyUrl = ApiUrl + "health/state/any";
 
-        public static readonly IPAddress DefaultHost = Dns.GetHostAddresses(string.Empty)[0];
+        public static readonly string DefaultHost = Dns.GetHostEntry(string.Empty).HostName;
         public static readonly int DefaultPort = 8500;
         public static readonly TimeSpan DefaultTimeout = TimeSpan.FromMinutes(6);
 
         public static StringContent GetStringContent<T>(T objectForContent) => new StringContent(JsonConvert.SerializeObject(objectForContent, JsonSettings), Encoding.UTF8, "application/json");
 
-        public static HttpClient CreateClient(IConsulAclProvider aclProvider, IPAddress agentHost = null, int? agentPort = null)
+        public static HttpClient CreateClient(IConsulAclProvider aclProvider, string agentHost = null, int? agentPort = null)
         {
             CondenserEventSource.Log.HttpClientCreated();
             var host = agentHost ?? DefaultHost;
