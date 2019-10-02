@@ -1,3 +1,4 @@
+using System.Net;
 using CondenserDotNet.Configuration.Consul;
 using Microsoft.Extensions.Options;
 
@@ -25,7 +26,7 @@ namespace CondenserDotNet.Configuration
             return this;
         }
 
-        public CondenserConfigBuilder WithAgentAddress(string address)
+        public CondenserConfigBuilder WithAgentAddress(IPAddress address)
         {
             _config.AgentAddress = address;
             return this;

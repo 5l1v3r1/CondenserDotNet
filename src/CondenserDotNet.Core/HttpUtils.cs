@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using CondenserDotNet.Core.Consul;
+using System.Net;
 
 namespace CondenserDotNet.Core
 {
@@ -26,19 +27,19 @@ namespace CondenserDotNet.Core
         public static readonly string SessionCreateUrl = ApiUrl + "session/create";
         public static readonly string HealthAnyUrl = ApiUrl + "health/state/any";
 
-        public static readonly string DefaultHost = "localhost";
+        public static readonly IPAddress DefaultHost = IPAddress.Loopback;
         public static readonly int DefaultPort = 8500;
         public static readonly TimeSpan DefaultTimeout = TimeSpan.FromMinutes(6);
 
         public static StringContent GetStringContent<T>(T objectForContent) => new StringContent(JsonConvert.SerializeObject(objectForContent, JsonSettings), Encoding.UTF8, "application/json");
 
-        public static HttpClient CreateClient(IConsulAclProvider aclProvider, string agentHost = null, int? agentPort = null)
+        public static HttpClient CreateClient(IConsulAclProvider aclProvider, IPAddress agentHost = null, int? agentPort = null)
         {
             CondenserEventSource.Log.HttpClientCreated();
             var host = agentHost ?? DefaultHost;
             var port = agentPort ?? DefaultPort;
 
-            var uri = new UriBuilder("http", host, port);
+            var uri = new UriBuilder("http", host.ToString(), port);
             var client = new HttpClient(new HttpClientHandler() { MaxConnectionsPerServer = 50 })
             {
                 BaseAddress = uri.Uri,
